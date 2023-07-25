@@ -1,0 +1,226 @@
+/* Todo Item */
+.todo-item {
+  width: 100%;
+  margin: 15px 0 0;
+  background: #fff;
+  border-radius: 15px;
+
+  &.complete {
+    background-color: #f3f3f3;
+    .todo-title {
+      text-decoration: line-through;
+    }
+    .todo-description {
+      text-decoration: line-through;
+    }
+    .todo-date {
+      text-decoration: line-through;
+    }
+    .btn__edit {
+      display: none;
+    }
+  }
+
+  &:first-child {
+    margin: 0;
+  }
+  &.edit-mode {
+    .todo-default {
+      display: none;
+    }
+    .todo-edit {
+      display: block;
+    }
+  }
+
+  .item-view {
+    padding: 25px;
+    width: 100%;
+  }
+
+  @mixin transition($transEl, $duration) {
+    -webkit-transition: $transEl $duration ease;
+    -moz-transition:  $transEl $duration ease;
+    -ms-transition:  $transEl $duration ease;
+    -o-transition:  $transEl $duration ease;
+    transition:  $transEl $duration ease;
+  }
+  @mixin borderShadow($color) {
+    box-shadow: 0px 0px 0px 1.5px $color inset;
+    -webkit-box-shadow: 0px 0px 0px 1.5px $color inset;
+    -moz-box-shadow: 0px 0px 0px 1.5px $color inset;
+  }
+
+  .controls {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 15px 0;
+    width: 70px;
+
+    &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 75%;
+      background: #eeeeee;
+    }
+
+    .btn__done {
+      display: block;
+      position: relative;
+      width: 18px;
+      height: 18px;
+      margin: 6px 0 8px;
+      cursor: pointer;
+      font-size: 22px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+
+      input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+        &:checked ~ .checkmark:after {
+          display: block;
+        }
+      }
+      &:hover {
+        .checkmark { 
+          @include borderShadow(#4a69bd); 
+          @include transition(box-shadow, 0.5s);
+          &:after{
+            border-color: #4a69bd;
+            @include transition(border-color, 0.5s);
+          }
+        }
+      }
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 18px;
+        width: 18px;
+        background-color: transparent;
+        border-radius: 3px;
+        @include borderShadow(#a0a0a0);
+        @include transition(box-shadow, 0.2s);
+
+        &:after {
+          content: "";
+          position: absolute;
+          display: none;
+          left: 6px;
+          top: 2px;
+          width: 4px;
+          height: 10px;
+          border: solid #a0a0a0;
+          border-width: 0 2px 2px 0;
+          -webkit-transform: rotate(45deg);
+          -ms-transform: rotate(45deg);
+          transform: rotate(45deg);
+          @include transition(border-color, 0.2s);
+        }
+      }
+    }
+
+    button {
+      padding: 5px;
+      border: 0;
+      background: 0;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #a0a0a0;
+      @include transition(color, 0.2s);
+
+      &.btn__edit:hover {
+        @include transition(color, 0.5s);
+        color: #78e08f;
+      }
+      &.btn__edit  {
+        svg {
+          margin-right: -2px;
+        }
+      }
+      &.btn__delete:hover {
+        @include transition(color, 0.5s);
+        color: #b71540;
+      }
+      &.btn__ok:hover {
+        @include transition(color, 0.5s);
+        color: #78e08f;
+      }
+      &.btn__cancel:hover {
+        @include transition(color, 0.2s);
+        color: #b71540;
+      }
+    }
+
+  }
+}
+
+.todo-default {
+  display: flex;
+
+  .todo-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  .todo-description {
+    font-size: 1.2rem;
+  }
+  .todo-date {
+    font-size: 1rem;
+  }
+  p {
+    margin: 5px 0 0;
+  }
+}
+
+.todo-edit {
+  display: none;
+
+  form {
+    display: flex;
+  }
+}
+
+//Animation
+
+.animate-appear {
+  opacity: 0;
+  transform: translateY(-200%);
+}
+.animate-appear-active {
+  opacity: 0.3;
+  transform: translateY(0);
+  transition: all 200ms ease-out;
+}
+.animate-appear-done {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+.animate-exit-active {
+  opacity: 0;
+  transform: translateX(50%);
+  transition: all 200ms ease-in;
+}
+.animate-exit-done {
+  opacity: 0;
+  transform: translateX(50%);
+}
