@@ -29,7 +29,7 @@ const CreateTodo = ({todoItems, setTodoItems}) => {
     <div className='form-block'>
       <form className="form" action="#" onSubmit={addTodo}>
         <div className="form__box" >
-          <label htmlFor="todo-title">Title*</label>
+          <label htmlFor="todo-title">Title</label>
           <input value={userTitle} onChange={userTitleHandler} name="todo-title" type="text" />
         </div>
 
